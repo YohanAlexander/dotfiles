@@ -1,0 +1,29 @@
+
+Host *
+    ForwardAgent yes
+    ForwardX11 yes
+
+Host github.com
+  User git
+  HostName github.com
+  IdentityFile ~/.ssh/github
+
+Host cedro
+    User yohan
+    HostName 200.17.141.82
+    Port 20003
+
+Host notebook-server
+    User ubuntu
+    HostName 10.0.0.1
+
+Host notebook-start
+    User ubuntu
+    HostName 10.0.0.1
+    RemoteCommand jupyter notebook --no-browser
+    LocalForward 8888 127.0.0.1:8888
+
+Host notebook-stop
+    User ubuntu
+    HostName 10.0.0.1
+    RemoteCommand jupyter notebook stop
