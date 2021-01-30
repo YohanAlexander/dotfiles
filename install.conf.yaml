@@ -1,0 +1,50 @@
+- defaults:
+    link:
+      create: true
+      force: true
+    shell:
+      stdout: true
+      stdin: true
+
+- clean: ["~"]
+
+- link:
+    ~/.config/git/gitk: config/git/gitk
+    ~/.config/kitty/diff.conf: config/kitty/diff.conf
+    ~/.config/kitty/dracula.conf: config/kitty/dracula.conf
+    ~/.config/kitty/kitty.conf: config/kitty/kitty.conf
+    ~/.config/ranger/rc.conf: config/ranger/rc.conf
+    ~/.config/ranger/commands.py: config/ranger/commands.py
+    ~/.config/ranger/plugins/autojump.py: config/ranger/autojump.py
+    ~/.config/ranger/plugins/devicons.py: config/ranger/devicons.py
+    ~/.config/ranger/rifle.conf: config/ranger/rifle.conf
+    ~/.config/ranger/scope.sh: config/ranger/scope.sh
+    ~/.forgit.zsh: fzf/forgit.zsh
+    ~/.gdbinit: gdb/gdbinit
+    ~/.gitconfig: git/gitconfig
+    ~/.ssh/config: ssh/config
+    ~/.vimrc: vim/vimrc
+    ~/.config/nvim/init.vim: vim/init.vim
+    ~/.zshrc: zsh/zshrc
+
+- shell:
+    - description: zsh gh ranger delta fd bat lsd fzf go autojump neovim flameshot gnome-tweaks fira-code-fonts kitty visidata copyq vlc ag-silver-searcher @development-tools
+      command: "sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && sudo dnf install zsh gh ranger git-delta fd-find bat lsd fzf golang autojump-zsh neovim flameshot gnome-tweaks fira-code-fonts kitty visidata copyq vlc the_silver_searcher && sudo dnf groupinstall 'Development Tools'"
+    - description: oh-my-zsh
+      command: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
+    - description: fast-syntax-highlighting
+      command: "git clone https://github.com/zdharma/fast-syntax-highlighting.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"
+    - description: zsh-autosuggestions
+      command: "git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
+    - description: fzf-tab
+      command: "git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/fzf-tab"
+    - description: zsh-completions
+      command: "git clone https://github.com/clarketm/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions"
+    - description: devicons
+      command: "git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons"
+    - description: spaceship-prompt
+      command: "git clone https://github.com/denysdovhan/spaceship-prompt.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/spaceship-prompt --depth=1 && ln -s ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/spaceship-prompt/spaceship.zsh-theme ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/spaceship.zsh-theme"
+    - description: snap mailspring postman code
+      command: "sudo dnf install snapd && sudo ln -s /var/lib/snapd/snap /snap && sudo snap install mailspring postman && sudo snap install code --classic"
+    - description: flatpak spotify webtorrent
+      command: "sudo flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo && flatpak install flathub com.spotify.Client && flatpak install flathub io.webtorrent.WebTorrent"
