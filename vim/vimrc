@@ -1,0 +1,734 @@
+" Minimalist Vim Plugin Manager Auto Install.
+if empty(glob('~/.vim/autoload/plug.vim'))
+  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
+    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
+endif
+
+call plug#begin()
+
+" Vim plugin that shows keybinds in popup.
+Plug 'liuchengxu/vim-which-key'
+
+" Intellisense engine for Neovim, full language server protocol support.
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" Check syntax in Vim asynchronously and fix files, with LSP support.
+Plug 'w0rp/ale'
+
+" Lean and mean status/tabline for Vim that's light as air.
+Plug 'vim-airline/vim-airline'
+
+" Dark theme for Vim.
+Plug 'dracula/vim', { 'as': 'dracula' }
+
+" The fastest Vim plugin for asynchronously displaying the colours in the file.
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
+
+" The fancy start screen for Vim.
+Plug 'mhinz/vim-startify'
+
+" A command-line fuzzy finder.
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+Plug 'coreyja/fzf.devicon.vim'
+
+" Improved Vim spelling plugin.
+Plug 'kamykn/spelunker.vim'
+Plug 'mateusbraga/vim-spell-pt-br'
+
+" Adds the file type icons to Vim plugins.
+Plug 'ryanoasis/vim-devicons'
+Plug 'vwxyutarooo/nerdtree-devicons-syntax'
+
+" A tree explorer plugin for Vim.
+Plug 'scrooloose/nerdtree'
+Plug 'xuyuanp/nerdtree-git-plugin'
+
+" Vim plugin for intensely nerdy commenting powers.
+Plug 'scrooloose/nerdcommenter'
+
+" Better whitespace highlighting for Vim.
+Plug 'ntpeters/vim-better-whitespace'
+
+" A Vim plugin for visually displayingindent levels in code.
+Plug 'nathanaelkane/vim-indent-guides'
+
+" Edit your Jupyter notebooks in Vim.
+" Plug 'szymonmaszke/vimpyter'
+
+" A solid language pack for Vim.
+Plug 'sheerun/vim-polyglot'
+
+" Rainbow parentheses improved.
+Plug 'luochen1990/rainbow'
+
+" Vim plugin that displays tags in a window, ordered by scope.
+Plug 'majutsushi/tagbar'
+
+" A Git wrapper so awesome, it should be illegal.
+Plug 'tpope/vim-fugitive'
+
+" A Vim plugin which shows git diff markers in the sign column.
+Plug 'airblade/vim-gitgutter'
+
+" Go development plugin for Vim.
+Plug 'fatih/vim-go', { 'do': ':GoUpdateBinaries' }
+
+" Vim integration for delve debugger.
+Plug 'sebdah/vim-delve'
+
+" Git blame plugin for Vim.
+Plug 'APZelos/blamer.nvim'
+
+call plug#end()
+
+" Automatically install missing plugins on startup.
+autocmd VimEnter *
+  \  if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+  \|   PlugInstall --sync | q
+  \| endif
+
+" Triger autoread when files changes on disk.
+autocmd FocusGained,BufEnter,CursorHold,CursorHoldI *
+        \ if mode() !~ '\v(c|r.?|!|t)' && getcmdwintype() == '' | checktime | endif
+
+" Notification after file change.
+autocmd FileChangedShellPost *
+  \ echohl WarningMsg | echo "File changed on disk. Buffer reloaded." | echohl None
+
+" Enable English / Portuguese spell check.
+set nospell spelllang=en_us,pt_br
+let g:enable_spelunker_vim = 1
+let g:spelunker_highlight_type = 1
+
+" Automatically save.
+set autowrite
+
+" Enable mouse usage (all modes).
+set mouse=a
+
+" Disable buffers and backup.
+set nobackup
+set noswapfile
+set nowritebackup
+
+" Set compatibility to Vim only.
+set nocompatible
+
+" Helps force plug-ins to load correctly when it is turned back on below.
+filetype off
+
+" Turn on syntax highlighting and dracula theme.
+syntax on
+colorscheme dracula
+set termguicolors
+
+" For plug-ins to load correctly.
+filetype plugin indent on
+
+" Turn off modelines.
+set modelines=0
+
+" Automatically wrap text that extends beyond the screen length.
+set wrap
+
+" Vim auto indentation feature does not work properly with text copied from outside of Vim. Press the <F2> key to toggle paste mode on/off.
+nnoremap <F2> :set invpaste paste?<CR>
+imap <F2> <C-O>:set invpaste paste?<CR>
+set pastetoggle=<F2>
+
+" Uncomment below to set the max textwidth. Use a value corresponding to the width of your screen.
+set textwidth=80
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+set smarttab
+set shiftround
+set cursorline
+set cindent
+set copyindent
+set autoindent
+
+" Display 5 lines above/below the cursor when scrolling with a mouse.
+set scrolloff=5
+
+" Fixes common backspace problems.
+set backspace=indent,eol,start
+
+" Speed up scrolling in Vim.
+set ttyfast lazyredraw
+
+" Status bar.
+set laststatus=2 statusline=%F
+
+" Display options.
+set noshowmode
+
+" Show (partial) command in status line.
+set noshowcmd
+
+" Show matching brackets.
+set showmatch
+
+" Highlight matching pairs of brackets. Use the '%' character to jump between them.
+set matchpairs+=<:>
+
+" Display different types of white spaces.
+set list
+set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+
+" Show line numbers.
+set number relativenumber
+
+" Encoding.
+set encoding=utf-8
+set fileformat=unix
+
+" Highlight matching search patterns.
+set hlsearch
+" Enable incremental search.
+set incsearch
+" Include matching uppercase words with lowercase search term.
+set ignorecase
+" Include only uppercase words with uppercase search term.
+set smartcase
+
+" Store info from no more than 100 files at a time, 9999 lines of text, 100kb of data. Useful for copying large amounts of data between files.
+set viminfo='100,<9999,s100
+
+" Map the <Space> key to toggle a selected fold opened/closed.
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
+
+" Automatically save and load folds.
+augroup AutoSaveFolds
+  autocmd!
+  au BufWinLeave,BufLeave,BufWritePost ?* nested silent! mkview! 1
+  au BufWinEnter ?* silent! loadview 1
+augroup END
+set viewoptions=folds,cursor
+set sessionoptions=folds
+
+" Vim configurations.
+set title
+set hidden
+set autochdir
+set equalalways
+set novisualbell
+set noerrorbells
+set foldenable
+set foldlevelstart=10
+set foldmethod=indent
+set splitbelow splitright
+set wildmenu
+set history=1000
+set undolevels=1000
+set wildmode=longest,list,full
+set wildignore=*.swp,*.bak,*.pyc,*.class
+
+" Clipboard
+set clipboard=unnamedplus
+vnoremap <C-S-c> "+y
+nmap <C-S-v> "+p
+
+" Toggle Tree
+nmap <F3> :NERDTreeToggle<CR>
+
+" Toggle Tagbar
+nmap <F4> :TagbarToggle<CR>
+
+" Change Tabs
+nnoremap <C-Left> :tabprevious<CR>
+nnoremap <C-Right> :tabnext<CR>
+
+" Change Buffers
+nnoremap <C-Up> :cprevious<CR>
+nnoremap <C-Down> :cnext<CR>
+
+" New Tabs
+nnoremap <C-t> :tabnew<CR>
+nnoremap <C-w> :tabclose<CR>
+
+" Move lines
+nnoremap <A-Up> :m-2<CR>
+inoremap <A-Up> <Esc>:m-2<CR>
+nnoremap <A-Down> :m+<CR>
+inoremap <A-Down> <Esc>:m+<CR>
+
+" Duplicate line
+nmap <C-d> mzyyp`z
+
+" Undo / Redo
+nmap <C-z> u
+nmap <C-y> <C-r>
+
+"""""""""""
+"  SPELL  "
+"""""""""""
+
+" Use Ctrl-e to correct word under cursor
+nmap <C-e> Zc
+
+" Use Ctrl-e to correct all words in buffer
+nmap <C-a> ZC
+
+"""""""""""
+"  SPELL  "
+"""""""""""
+
+"""""""""""
+"  BLAME  "
+"""""""""""
+
+" Activate git blame
+let g:blamer_enabled = 1
+
+" Git blame template
+let g:blamer_template = '<author>, <author-time> • <summary>'
+
+" Date format on git blame
+let g:blamer_date_format = '%d/%m/%y'
+
+"""""""""""
+"  BLAME  "
+"""""""""""
+
+""""""""""
+" GOLANG "
+""""""""""
+
+" Golang disable default keymaps
+let g:go_def_mapping_enabled = 0
+
+" Golang syntax highlighting
+let g:go_highlight_build_constraints = 1
+let g:go_highlight_extra_types = 1
+let g:go_highlight_fields = 1
+let g:go_highlight_functions = 1
+let g:go_highlight_methods = 1
+let g:go_highlight_operators = 1
+let g:go_highlight_structs = 1
+let g:go_highlight_interfaces = 1
+let g:go_highlight_types = 1
+let g:go_auto_sameids = 1
+
+" Golang Language Server Protocol
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
+
+" Golang docs on floating window
+let g:go_doc_popup_window = 1
+
+" Golang auto formatting and importing
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
+
+" Golang status line types/signatures
+let g:go_auto_type_info = 1
+
+" Golang toggle debbuger breakpoint
+au filetype go nnoremap <tab> :DlvToggleBreakpoint<CR>
+
+" Golang alternate test file
+au Filetype go nnoremap <C-b> :GoAlternate<CR>
+
+" Golang linter source code
+let g:go_metalinter_autosave = 1
+let g:go_metalinter_enabled = ['vet', 'golint', 'errcheck']
+let g:go_metalinter_autosave_enabled = ['vet', 'golint']
+
+""""""""""
+" GOLANG "
+""""""""""
+
+""""""""""
+" STATUS "
+""""""""""
+
+" Statusline and Tabline with Powerline symbols
+let g:airline_powerline_fonts=1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#left_sep = ' '
+let g:airline#extensions#tabline#left_alt_sep = ''
+let g:airline#extensions#tabline#right_sep = ' '
+let g:airline#extensions#tabline#right_alt_sep = ''
+let g:airline#extensions#tabline#formatter = 'default'
+let g:airline_theme='dracula'
+
+""""""""""
+" STATUS "
+""""""""""
+
+""""""""""""
+"  PYTHON  "
+""""""""""""
+
+" Python Files
+highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+match OverLength /\%81v.\+/
+let g:ale_linters = {
+\    'python': ['pylint', 'flake8', 'pydocstyle', 'bandit', 'mypy']
+\}
+let g:ale_fixers = {
+\    '*': ['remove_trailing_lines', 'trim_whitespace'],
+\    'python': ['black', 'autopep8', 'yapf', 'isort'],
+\    'javascript': ['prettier', 'eslint'],
+\}
+let g:ale_fix_on_save = 1
+
+" Indent lines
+let g:indent_guides_enable_on_vim_startup=1
+let g:strip_whitespace_on_save=1
+
+" Color matched parentheses
+  let g:rainbow_active = 1
+
+""""""""""""
+"  PYTHON  "
+""""""""""""
+
+"""""""""""
+" STARTUP "
+"""""""""""
+
+" 'Most Recent Files' startup number
+let g:startify_files_number           = 13
+
+" Update session automatically as you exit vim
+let g:startify_session_persistence    = 1
+
+" Simplify the startify list to just recent files and sessions
+let g:startify_lists = [
+  \ { 'type': 'dir',       'header': ['   Recent files'] },
+  \ { 'type': 'sessions',  'header': ['   Saved sessions'] },
+  \ ]
+
+" Fancy custom header
+let g:startify_custom_header = [
+  \ "",
+  \ '   ╻ ╻   ╻   ┏┳┓',
+  \ '   ┃┏┛   ┃   ┃┃┃',
+  \ '   ┗┛    ╹   ╹ ╹',
+  \ '',
+  \ ]
+
+"""""""""""
+" STARTUP "
+"""""""""""
+
+"""""""""""
+"   FZF   "
+"""""""""""
+
+" FZF keymaps
+nnoremap <silent> <C-p> :FilesWithDevicons<CR>
+nnoremap <silent> <C-g> :GFilesWithDevicons<CR>
+nnoremap <silent> <C-s> :GFilesWithDevicons?<CR>
+nnoremap <silent> <C-f> :AgWithDevicons<CR>
+nnoremap <silent> <C-l> :LocateWithDevicons""<CR>
+
+" Use Ctrl-x for FZF preview window in files
+nnoremap <silent> <C-x> :call Fzf_dev()<CR>
+
+" ripgrep
+if executable('rg')
+  let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --follow --glob "!.git/*"'
+  set grepprg=rg\ --vimgrep
+  command! -bang -nargs=* Find call fzf#vim#grep('rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --glob "!.git/*" --color "always" '.shellescape(<q-args>).'| tr -d "\017"', 1, <bang>0)
+endif
+
+" Files + devicons
+function! Fzf_dev()
+  let l:fzf_files_options = '--ansi --preview "bat --theme="OneHalfDark" --style=numbers,changes --color always {2..-1} | head -'.&lines.'"'
+
+  function! s:files()
+    let l:files = split(system($FZF_DEFAULT_COMMAND), '\n')
+    return s:prepend_icon(l:files)
+  endfunction
+
+  function! s:prepend_icon(candidates)
+    let l:result = []
+    for l:candidate in a:candidates
+      let l:filename = fnamemodify(l:candidate, ':p:t')
+      let l:icon = WebDevIconsGetFileTypeSymbol(l:filename, isdirectory(l:filename))
+      call add(l:result, printf('%s %s', l:icon, l:candidate))
+    endfor
+
+    return l:result
+  endfunction
+
+  function! s:edit_file(item)
+    let l:pos = stridx(a:item, ' ')
+    let l:file_path = a:item[pos+1:-1]
+    execute 'silent e' l:file_path
+  endfunction
+
+  call fzf#run({
+        \ 'source': <sid>files(),
+        \ 'sink':   function('s:edit_file'),
+        \ 'options': '-m ' . l:fzf_files_options,
+        \ 'down':    '40%' })
+endfunction
+
+"""""""""""
+"   FZF   "
+"""""""""""
+
+"""""""""""
+"   COC   "
+"""""""""""
+
+" Completion configurations.
+
+let g:coc_global_extensions = [
+    \ 'coc-snippets',
+    \ 'coc-actions',
+    \ 'coc-lists',
+    \ 'coc-emmet',
+    \ 'coc-tasks',
+    \ 'coc-pairs',
+    \ 'coc-tsserver',
+    \ 'coc-floaterm',
+    \ 'coc-html',
+    \ 'coc-css',
+    \ 'coc-emoji',
+    \ 'coc-cssmodules',
+    \ 'coc-yaml',
+    \ 'coc-python',
+    \ 'coc-pyright',
+    \ 'coc-explorer',
+    \ 'coc-svg',
+    \ 'coc-prettier',
+    \ 'coc-vimlsp',
+    \ 'coc-xml',
+    \ 'coc-yank',
+    \ 'coc-json',
+    \ 'coc-marketplace',
+    \ 'coc-tabnine',
+    \ 'coc-sql',
+    \ 'coc-go',
+    \ ]
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion.
+inoremap <silent><expr> <c-space> coc#refresh()
+
+" Use <cr> to confirm completion, `<C-g>u` means break undo chain at current
+" position. Coc only does snippet and additional edit on confirm.
+if exists('*complete_info')
+  inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+else
+  imap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
+endif
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  else
+    call CocAction('doHover')
+  endif
+endfunction
+
+" Highlight the symbol and its references when holding the cursor.
+autocmd CursorHold * silent call CocActionAsync('highlight')
+
+" Symbol renaming.
+" nmap <leader>rn <Plug>(coc-rename)
+
+augroup mygroup
+  autocmd!
+  " Setup formatexpr specified filetype(s).
+  autocmd FileType typescript,json setl formatexpr=CocAction('formatSelected')
+  " Update signature help on jump placeholder.
+  autocmd User CocJumpPlaceholder call CocActionAsync('showSignatureHelp')
+augroup end
+
+" Applying codeAction to the selected region.
+" Example: `<leader>aap` for current paragraph
+" xmap <leader>a  <Plug>(coc-codeaction-selected)
+" nmap <leader>a  <Plug>(coc-codeaction-selected)
+
+" Remap keys for applying codeAction to the current line.
+" nmap <leader>ac  <Plug>(coc-codeaction)
+" Apply AutoFix to problem on the current line.
+" nmap <leader>qf  <Plug>(coc-fix-current)
+
+" Introduce function text object
+" NOTE: Requires 'textDocument.documentSymbol' support from the language server.
+xmap if <Plug>(coc-funcobj-i)
+xmap af <Plug>(coc-funcobj-a)
+omap if <Plug>(coc-funcobj-i)
+omap af <Plug>(coc-funcobj-a)
+
+" Use <TAB> for selections ranges.
+" NOTE: Requires 'textDocument/selectionRange' support from the language server.
+" coc-tsserver, coc-python are the examples of servers that support it.
+" nmap <silent> <TAB> <Plug>(coc-range-select)
+" xmap <silent> <TAB> <Plug>(coc-range-select)
+
+" Add `:Format` command to format current buffer.
+command! -nargs=0 Format :call CocAction('format')
+
+" Add `:Fold` command to fold current buffer.
+command! -nargs=? Fold :call     CocAction('fold', <f-args>)
+
+" Add `:OR` command for organize imports of the current buffer.
+command! -nargs=0 OR   :call     CocAction('runCommand', 'editor.action.organizeImport')
+
+" Add (Neo)Vim's native statusline support.
+" NOTE: Please see `:h coc-status` for integrations with external plugins that
+" provide custom statusline: lightline.vim, vim-airline.
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+" Mappings using CoCList:
+" Show all diagnostics.
+" TODO add these to which key
+" nnoremap <silent> <space>a  :<C-u>CocList diagnostics<cr>
+" " Manage extensions.
+" nnoremap <silent> <space>e  :<C-u>CocList extensions<cr>
+" " Show commands.
+" nnoremap <silent> <space>c  :<C-u>CocList commands<cr>
+" " Find symbol of current document.
+" nnoremap <silent> <space>o  :<C-u>CocList outline<cr>
+" " Search workspace symbols.
+" nnoremap <silent> <space>s  :<C-u>CocList -I symbols<cr>
+" " Do default action for next item.
+" nnoremap <silent> <space>j  :<C-u>CocNext<CR>
+" " Do default action for previous item.
+" nnoremap <silent> <space>k  :<C-u>CocPrev<CR>
+" " Resume latest coc list.
+" nnoremap <silent> <space>p  :<C-u>CocListResume<CR>
+
+" Explorer
+let g:coc_explorer_global_presets = {
+\   'floating': {
+\      'position': 'floating',
+\   },
+\   'floatingLeftside': {
+\      'position': 'floating',
+\      'floating-position': 'left-center',
+\      'floating-width': 30,
+\   },
+\   'floatingRightside': {
+\      'position': 'floating',
+\      'floating-position': 'right-center',
+\      'floating-width': 30,
+\   },
+\   'simplify': {
+\     'file.child.template': '[selection | clip | 1] [indent][icon | 1] [filename omitCenter 1]'
+\   }
+\ }
+"nmap <silent> <space>e :CocCommand explorer<CR>
+" nnoremap <silent> <leader>e :CocCommand explorer<CR>
+" nmap <space>f :CocCommand explorer --preset floatingRightside<CR>
+autocmd BufEnter * if (winnr("$") == 1 && &filetype == 'coc-explorer') | q | endif
+
+" Snippets
+" Use <C-l> for trigger snippet expand.
+imap <C-l> <Plug>(coc-snippets-expand)
+
+" Use <C-j> for select text for visual placeholder of snippet.
+vmap <C-j> <Plug>(coc-snippets-select)
+
+" Use <C-j> for jump to next placeholder, it's default of coc.nvim
+let g:coc_snippet_next = '<c-j>'
+
+" Use <C-k> for jump to previous placeholder, it's default of coc.nvim
+let g:coc_snippet_prev = '<c-k>'
+
+" Use <C-j> for both expand and jump (make expand higher priority.)
+imap <C-j> <Plug>(coc-snippets-expand-jump)
+
+"""""""""""
+"   COC   "
+"""""""""""
+
+"""""""""""
+"   KEY   "
+"""""""""""
+
+" Map leader to which_key
+nnoremap <silent> <leader> :silent WhichKey '<Space>'<CR>
+vnoremap <silent> <leader> :silent <c-u> :silent WhichKeyVisual '<Space>'<CR>
+
+" Create map to add keys to
+let g:which_key_map =  {}
+
+" Define a separator
+let g:which_key_sep = '→'
+" set timeoutlen=100
+
+" Not a fan of floating windows for this
+let g:which_key_use_floating_win = 1
+
+" Change the colors if you want
+highlight default link WhichKey          Operator
+highlight default link WhichKeySeperator DiffAdded
+highlight default link WhichKeyGroup     Identifier
+highlight default link WhichKeyDesc      Function
+
+" Hide status line
+autocmd! FileType which_key
+autocmd  FileType which_key set laststatus=0 noshowmode noruler
+  \| autocmd BufLeave <buffer> set laststatus=2 noshowmode ruler
+
+" Single mappings
+let g:which_key_map = {
+      \ '.' : ['<Plug>NERDCommenterToggle'  , 'comment' ],
+      \ ',' : [':Startify'                  , 'start screen' ],
+      \ '/' : [':History/'                  , 'history'],
+      \ ';' : [':Commands'                  , 'commands'],
+      \ 'a' : [':Ag'                        , 'text Ag'],
+      \ 'b' : [':BLines'                    , 'current buffer'],
+      \ 'B' : [':Buffers'                   , 'open buffers'],
+      \ 'c' : [':Commits'                   , 'commits'],
+      \ 'C' : [':BCommits'                  , 'buffer commits'],
+      \ 'f' : [':Files'                     , 'files'],
+      \ 'g' : [':GFiles'                    , 'git files'],
+      \ 'G' : [':GFiles?'                   , 'modified git files'],
+      \ 'h' : [':History'                   , 'file history'],
+      \ 'H' : [':History:'                  , 'command history'],
+      \ 'l' : [':Lines'                     , 'lines'] ,
+      \ 'm' : [':Marks'                     , 'marks'] ,
+      \ 'M' : [':Maps'                      , 'normal maps'] ,
+      \ 'p' : [':Helptags'                  , 'help tags'] ,
+      \ 'P' : [':Tags'                      , 'project tags'],
+      \ 's' : [':Snippets'                  , 'snippets'],
+      \ 'S' : [':Colors'                    , 'color schemes'],
+      \ 't' : [':Rg'                        , 'text Rg'],
+      \ 'T' : [':BTags'                     , 'buffer tags'],
+      \ 'w' : [':Windows'                   , 'search windows'],
+      \ 'y' : [':Filetypes'                 , 'file types'],
+      \ 'z' : [':FZF'                       , 'FZF'],
+      \ }
+
+" Register which key map
+call which_key#register('<Space>', "g:which_key_map")
+
+"""""""""""
+"   KEY   "
+"""""""""""
