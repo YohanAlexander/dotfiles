@@ -56,3 +56,5 @@
 	cmd = code --wait $MERGED
 [mergetool]
 	keepBackup = false
+[credential]
+	helper = store
