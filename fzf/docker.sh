@@ -56,7 +56,6 @@ runinc() {
   export FZF_DEFAULT_OPTS=""
 }
 
-# Stops and/or removes a docker container
 stopc() {
   export FZF_DEFAULT_OPTS='--height 90% --reverse --border'
   local container=$(docker ps -a --format '{{.Names}} => {{.Image}}' | fzf-tmux --reverse --multi | awk -F '=>' '{print $1}')
@@ -94,11 +93,10 @@ showipc() {
     local network=$(docker inspect $container -f '{{.NetworkSettings.Networks}}' | awk -F 'map\\[|:' '{print $2}')
     echo -e "\n  \033[1mDocker container:\033[0m" $container
     history -s showipc
-    history -s docker inspect -f "{{.NetworkSettings.Networks.${network}.IPAddress}}" $container
+    history -s docker inspect -f "{{with index .NetworkSettings.Networks \"${network}\"}}{{.IPAddress}}{{end}}" $container
     echo -e "  \033[1mNetwork:\033[0m" $network
-    echo -e "  \033[1mIP Address:\033[0m" $(docker inspect -f "{{.NetworkSettings.Networks.${network}.IPAddress}}" $container) "\n"
+    echo -e "  \033[1mIP Address:\033[0m" $(docker inspect -f "{{with index .NetworkSettings.Networks \"${network}\"}}{{.IPAddress}}{{end}}" $container) "\n"
   fi
 }
 
 "$@"
-
