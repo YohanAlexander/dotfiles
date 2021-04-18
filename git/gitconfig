@@ -4,12 +4,12 @@
 	signingkey = E9C1A1E473E09F61
 [commit]
 	gpgsign = true
+[fetch]
+    prune = true
 [pull]
 	ff = only
 [rebase]
     autosquash = true
-[alias]
-	ci = commit
 [filter "lfs"]
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
