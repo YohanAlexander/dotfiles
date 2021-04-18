@@ -23,6 +23,7 @@
     ~/.gdbinit: gdb/gdbinit
     ~/.gitconfig: git/gitconfig
     ~/.ssh/config: ssh/config
+    ~/.terminalizer/config.yml: terminalizer/config.yml
     ~/.vimrc: vim/vimrc
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.zshrc: zsh/zshrc
