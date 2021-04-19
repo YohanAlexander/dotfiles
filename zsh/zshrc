@@ -105,7 +105,7 @@ fi
     findf() {
         local line
         line=`ag --color " " | fzf --ansi` \
-            && nvim $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
+            && $EDITOR $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
     }
     zle -N findf
     bindkey '^f' findf
@@ -129,40 +129,23 @@ fi
 # >>> Git initialize >>>
 # !! Contents within this block are managed by 'Git init' !!
     alias gdiff="git difftool --no-symlinks --dir-diff"
-    alias gcheck="git for-each-ref --format='%(refname:short)' refs/heads | fzf | xargs git checkout"
-    gsync() {
-        git branch -r | grep -v '\->' | while read remote; do git branch --track "${remote#origin/}" "$remote"; done ; git fetch --all ; git pull --all ;
-    }
-    grebase() {
-        git rebase -i $(git log --pretty=oneline --color=always | fzf --ansi | cut -d ' ' -f1)^ ;
-    }
-    gfixup() {
-        target=$(git log --pretty=format:'%h %s' --no-merges | fzf --preview "echo {} | cut -f 1 -d' ' | xargs -I SHA git show --color=always --pretty=fuller --stat SHA" | awk '{ print $1 }')
-        if [[ $target != '' ]]; then
-            git commit --fixup $(echo $target)
-            git rebase -i --autosquash $(echo $target~)
-        fi
-    }
-    gstash() {
-        local out q k sha
-        while out=$(
-        git stash list --pretty="%C(yellow)%h %>(14)%Cgreen%cr %C(blue)%gs" |
-        fzf --cycle --ansi --no-sort --query="$q" --print-query \
-            --expect=ctrl-d,ctrl-b);
-        do
-        q=$(head -1 <<< "$out")
-        k=$(head -2 <<< "$out" | tail -1)
-        sha=$(tail -1 <<< "$out" | cut -d' ' -f1)
-        [ -z "$sha" ] && continue
-        if [ "$k" = 'ctrl-d' ]; then
-            git diff $sha
-        elif [ "$k" = 'ctrl-b' ]; then
-            git stash branch "stash-$sha" $sha
-            break;
-        else
-            git stash show -p $sha
-        fi
-        done
+    export FORGIT_COPY_CMD='xclip -selection clipboard'
+    export FORGIT_STASH_FZF_OPTS='
+    --bind="del:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
+    --bind="insert:reload(git stash pop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
+    '
+    gdb() {
+        forgit::inside_work_tree || return 1
+        [[ $# -ne 0 ]] && { git checkout -b "$*"; return $?; }
+        local cmd preview opts
+        cmd="git branch --color=always --verbose --all --format=\"%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%(refname:short)%(end)\" $forgit_emojify | sed '/^$/d'"
+        preview="git log {} --graph --pretty=format:'$forgit_log_format' --color=always --abbrev-commit --date=relative"
+        opts="
+            $FORGIT_FZF_DEFAULT_OPTS
+            +s +m --tiebreak=index
+            $FORGIT_CHECKOUT_BRANCH_FZF_OPTS
+            "
+        eval "$cmd" | FZF_DEFAULT_OPTS="$opts" fzf --multi --preview="$preview" | xargs -I% git branch -D %
     }
 # <<< Git initialize <<<
 
