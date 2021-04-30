@@ -13,6 +13,7 @@
     ~/.config/kitty/diff.conf: config/kitty/diff.conf
     ~/.config/kitty/dracula.conf: config/kitty/dracula.conf
     ~/.config/kitty/kitty.conf: config/kitty/kitty.conf
+    ~/.config/kitty/open-actions.conf: config/kitty/open-actions.conf
     ~/.config/ranger/rc.conf: config/ranger/rc.conf
     ~/.config/ranger/commands.py: config/ranger/commands.py
     ~/.config/ranger/plugins/autojump.py: config/ranger/autojump.py
@@ -29,8 +30,8 @@
     ~/.zshrc: zsh/zshrc
 
 - shell:
-    - description: zsh gh ranger delta fd bat lsd fzf go autojump neovim flameshot gnome-tweaks fira-code-fonts kitty visidata copyq vlc tldr ag-silver-searcher @development-tools
-      command: "sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && sudo dnf install zsh gh ranger git-delta fd-find bat lsd fzf golang autojump-zsh neovim flameshot gnome-tweaks fira-code-fonts kitty visidata copyq vlc tldr the_silver_searcher && sudo dnf groupinstall 'Development Tools'"
+    - description: zsh gh ranger delta fd bat lsd fzf go autojump neovim flameshot gnome-tweaks fira-code-fonts kitty visidata copyq vlc tldr ripgrep ag-silver-searcher @development-tools
+      command: "sudo dnf config-manager --add-repo https://cli.github.com/packages/rpm/gh-cli.repo && sudo dnf install zsh gh ranger git-delta fd-find bat lsd fzf golang autojump-zsh neovim flameshot gnome-tweaks fira-code-fonts kitty visidata copyq vlc tldr ripgrep the_silver_searcher && sudo dnf groupinstall 'Development Tools'"
     - description: oh-my-zsh
       command: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
     - description: fast-syntax-highlighting
