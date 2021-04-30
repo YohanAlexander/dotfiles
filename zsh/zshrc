@@ -99,23 +99,17 @@ fi
 # !! Contents within this block are managed by 'Dotfiles init' !!
     alias ls="lsd"
     alias cat="bat"
-    alias diff="delta"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
     TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es\nmemory\t%MMB'
-    findf() {
-        local line
-        line=`ag --color " " | fzf --ansi` \
-            && $EDITOR $(cut -d':' -f1 <<< "$line") +$(cut -d':' -f2 <<< "$line")
-    }
-    zle -N findf
-    bindkey '^f' findf
 # <<< Dotfiles initialize <<<
 
 # >>> Kitty initialize >>>
 # !! Contents within this block are managed by 'Kitty init' !!
     alias ssh="kitty +kitten ssh"
     alias icat="kitty +kitten icat"
+    alias diff="kitty +kitten diff"
     alias emoji="kitty +kitten unicode_input"
+    alias hg='kitty +kitten hyperlinked_grep'
 # <<< Kitty initialize <<<
 
 # >>> Docker initialize >>>
