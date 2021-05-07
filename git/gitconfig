@@ -51,10 +51,13 @@
 [difftool "kitty.gui"]
 	cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [merge]
-	tool = vscode
-[mergetool "vscode"]
-	cmd = code --wait $MERGED
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool "vimdiff"]
+    path = nvim
 [mergetool]
+	prompt = false
 	keepBackup = false
+    trustExitCode = true
 [credential]
 	helper = store
