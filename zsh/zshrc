@@ -97,8 +97,8 @@ fi
 
 # >>> Dotfiles initialize >>>
 # !! Contents within this block are managed by 'Dotfiles init' !!
-    alias ls="lsd"
     alias cat="bat"
+    alias ls="ls --color --hyperlink"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
     TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es\nmemory\t%MMB'
 # <<< Dotfiles initialize <<<
