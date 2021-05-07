@@ -240,12 +240,18 @@ nmap <F3> :NERDTreeToggle<CR>
 nmap <F4> :TagbarToggle<CR>
 
 " Change Tabs
-nnoremap <C-Left> :tabprevious<CR>
-nnoremap <C-Right> :tabnext<CR>
+nnoremap <S-Left> :tabprevious<CR>
+nnoremap <S-Right> :tabnext<CR>
 
 " Change Buffers
-nnoremap <C-Up> :cprevious<CR>
-nnoremap <C-Down> :cnext<CR>
+nnoremap <S-Up> :cprevious<CR>
+nnoremap <S-Down> :cnext<CR>
+
+" Change Splits
+nnoremap <C-Up> <C-w><Up>
+nnoremap <C-Down> <C-w><Down>
+nnoremap <C-Left> <C-w><Left>
+nnoremap <C-Right> <C-w><Right>
 
 " New Tabs
 nnoremap <C-t> :tabnew<CR>
