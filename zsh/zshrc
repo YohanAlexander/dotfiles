@@ -141,7 +141,7 @@ fi
             +s +m --tiebreak=index
             $FORGIT_CHECKOUT_BRANCH_FZF_OPTS
             "
-        eval "$cmd" | FZF_DEFAULT_OPTS="$opts" fzf --multi --preview="$preview" | xargs -I% git branch -D %
+        eval "$cmd" | FZF_DEFAULT_OPTS="$opts" fzf --multi --preview="$preview" | xargs -I% git branch -d %
     }
 # <<< Git initialize <<<
 

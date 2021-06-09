@@ -7,7 +7,7 @@
 [fetch]
     prune = true
 [pull]
-	ff = only
+	rebase = true
 [rebase]
     autosquash = true
 [filter "lfs"]
@@ -52,7 +52,6 @@
 	cmd = kitty kitty +kitten diff $LOCAL $REMOTE
 [merge]
 	tool = vimdiff
-	conflictstyle = diff3
 [mergetool "vimdiff"]
     path = nvim
 [mergetool]
@@ -60,4 +59,6 @@
 	keepBackup = false
     trustExitCode = true
 [credential]
-	helper = store
+	helper = cache --timeout=3600
+[submodule]
+    recurse = true
