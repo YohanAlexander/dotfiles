@@ -1,7 +1,7 @@
 [user]
-	email = yohanfranca@gmail.com
+	email = 39287022+YohanAlexander@users.noreply.github.com
 	name = Yohan Alexander
-	signingkey = 1C70BA663DA7DF30
+	signingkey = E9C1A1E473E09F61
 [commit]
 	gpgsign = true
 [fetch]
