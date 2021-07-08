@@ -3,7 +3,7 @@
 Commands:
 
 ```
-gh repo clone YohanAlexander/dotfiles
+git clone https://github.com/YohanAlexander/dotfiles.git
 cd dotfiles
 ./install
 ```
