@@ -62,7 +62,8 @@ ZSH_THEME="spaceship"
 # Custom plugins may be added to $HOME/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo fzf-tab autojump fast-syntax-highlighting zsh-completions vi-mode)
+plugins=(git sudo fzf-tab autojump zsh-syntax-highlighting zsh-completions)
+source $HOME/.zsh-syntax-highlighting.sh
 source $ZSH/oh-my-zsh.sh
 source $HOME/.forgit.zsh
 export GOBIN=$HOME/go/bin && export PATH=$PATH:$HOME/go/bin

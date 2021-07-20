@@ -28,14 +28,15 @@
     ~/.vimrc: vim/vimrc
     ~/.config/nvim/init.vim: vim/init.vim
     ~/.zshrc: zsh/zshrc
+    ~/.zsh-syntax-highlighting.sh: zsh/zsh-syntax-highlighting.sh
 
 - shell:
     - description: tools
       command: "sh ~/Dotfiles/init.sh"
     - description: oh-my-zsh
       command: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-    - description: fast-syntax-highlighting
-      command: "git clone https://github.com/zdharma/fast-syntax-highlighting.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/fast-syntax-highlighting"
+    - description: zsh-syntax-highlighting
+      command: "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
     - description: zsh-autosuggestions
       command: "git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
     - description: fzf-tab
