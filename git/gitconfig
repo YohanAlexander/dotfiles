@@ -7,7 +7,7 @@
 [fetch]
     prune = true
 [pull]
-	ff = only
+	rebase = true
 [rebase]
     autosquash = true
 [filter "lfs"]
