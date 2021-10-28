@@ -18,6 +18,7 @@
     ~/.config/ranger/commands.py: config/ranger/commands.py
     ~/.config/ranger/plugins/autojump.py: config/ranger/autojump.py
     ~/.config/ranger/plugins/devicons.py: config/ranger/devicons.py
+    ~/.config/ranger/colorschemes/dracula.py: config/ranger/dracula.py
     ~/.config/ranger/rifle.conf: config/ranger/rifle.conf
     ~/.config/ranger/scope.sh: config/ranger/scope.sh
     ~/.forgit.zsh: fzf/forgit.zsh
