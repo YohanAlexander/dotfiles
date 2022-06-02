@@ -1,5 +1,3 @@
-# Fig pre block. Keep at the top of this file.
-. "$HOME/.fig/shell/zshrc.pre.zsh"
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
@@ -132,19 +130,6 @@ fi
     --bind="del:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
     --bind="insert:reload(git stash pop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
     '
-    gdb() {
-        forgit::inside_work_tree || return 1
-        [[ $# -ne 0 ]] && { git checkout -b "$*"; return $?; }
-        local cmd preview opts
-        cmd="git branch --color=always --verbose --all --format=\"%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%(refname:short)%(end)\" $forgit_emojify | sed '/^$/d'"
-        preview="git log {} --graph --pretty=format:'$forgit_log_format' --color=always --abbrev-commit --date=relative"
-        opts="
-            $FORGIT_FZF_DEFAULT_OPTS
-            +s +m --tiebreak=index
-            $FORGIT_CHECKOUT_BRANCH_FZF_OPTS
-            "
-        eval "$cmd" | FZF_DEFAULT_OPTS="$opts" fzf --multi --preview="$preview" | xargs -I% git branch -d %
-    }
 # <<< Git initialize <<<
 
 # >>> FZF initialize >>>
@@ -172,6 +157,3 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
-
-# Fig post block. Keep at the bottom of this file.
-. "$HOME/.fig/shell/zshrc.post.zsh"
