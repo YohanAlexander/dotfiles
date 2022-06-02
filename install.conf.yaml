@@ -32,19 +32,4 @@
     ~/.zsh-syntax-highlighting.sh: zsh/zsh-syntax-highlighting.sh
 
 - shell:
-    - description: tools
-      command: "sh ~/Dotfiles/init.sh"
-    - description: oh-my-zsh
-      command: 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"'
-    - description: zsh-syntax-highlighting
-      command: "git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting"
-    - description: zsh-autosuggestions
-      command: "git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions"
-    - description: fzf-tab
-      command: "git clone https://github.com/Aloxaf/fzf-tab ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/fzf-tab"
-    - description: zsh-completions
-      command: "git clone https://github.com/clarketm/zsh-completions ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/plugins/zsh-completions"
-    - description: devicons
-      command: "git clone https://github.com/alexanderjeurissen/ranger_devicons ~/.config/ranger/plugins/ranger_devicons"
-    - description: spaceship-prompt
-      command: "git clone https://github.com/denysdovhan/spaceship-prompt.git ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/spaceship-prompt --depth=1 && ln -s ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/spaceship-prompt/spaceship.zsh-theme ${ZSH_CUSTOM:=~/.oh-my-zsh/custom}/themes/spaceship.zsh-theme"
+    - command: "sh ~/dotfiles/init.sh"
