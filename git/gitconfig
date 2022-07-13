@@ -63,3 +63,5 @@
 	helper = cache --timeout=3600
 [submodule]
     recurse = true
+[push]
+	autoSetupRemote = true
