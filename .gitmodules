@@ -2,3 +2,7 @@
 	path = dotbot
 	url = https://github.com/anishathalye/dotbot
 	ignore = dirty
+[submodule "forgit"]
+	path = forgit
+	url = https://github.com/wfxr/forgit
+	ignore = dirty

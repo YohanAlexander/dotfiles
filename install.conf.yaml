@@ -21,7 +21,7 @@
     ~/.config/ranger/colorschemes/dracula.py: config/ranger/dracula.py
     ~/.config/ranger/rifle.conf: config/ranger/rifle.conf
     ~/.config/ranger/scope.sh: config/ranger/scope.sh
-    ~/.forgit.zsh: fzf/forgit.zsh
+    ~/.forgit.plugin.zsh: forgit/forgit.plugin.zsh
     ~/.gdbinit: gdb/gdbinit
     ~/.gitconfig: git/gitconfig
     ~/.ssh/config: ssh/config
