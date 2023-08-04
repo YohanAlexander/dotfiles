@@ -32,4 +32,5 @@
     ~/.zsh-syntax-highlighting.sh: zsh/zsh-syntax-highlighting.sh
 
 - shell:
+    - [git submodule update --init --recursive, Installing submodules]
     - command: "sh ~/dotfiles/init.sh"
