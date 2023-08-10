@@ -83,9 +83,9 @@ export LC_MESSAGES="C"
 
 # Preferred editor for local and remote sessions
 if [[ -n $SSH_CONNECTION ]]; then
-    export EDITOR='nvim'
+    export EDITOR="nvim"
 else
-    export EDITOR='nvim'
+    export EDITOR="nvim"
 fi
 
 # Compilation flags
@@ -105,7 +105,7 @@ fi
     alias pip="/usr/local/bin/pip3"
     alias python="/usr/local/bin/python3"
     export MANPAGER="sh -c 'col -bx | bat -l man -p'"
-    TIMEFMT=$'\n================\nCPU\t%P\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es\nmemory\t%MMB'
+    TIMEFMT=$"\n================\nCPU\t%P\nuser\t%*Us\nsystem\t%*Ss\ntotal\t%*Es\nmemory\t%MMB"
 # <<< Dotfiles initialize <<<
 
 # >>> Kitty initialize >>>
@@ -114,7 +114,7 @@ fi
     alias icat="kitty +kitten icat"
     alias diff="kitty +kitten diff"
     alias emoji="kitty +kitten unicode_input"
-    alias hg='kitty +kitten hyperlinked_grep'
+    alias hg="kitty +kitten hyperlinked_grep"
 # <<< Kitty initialize <<<
 
 # >>> Docker initialize >>>
@@ -128,17 +128,31 @@ fi
 # >>> Git initialize >>>
 # !! Contents within this block are managed by 'Git init' !!
     alias gdiff="git difftool --no-symlinks --dir-diff"
-    export FORGIT_COPY_CMD='xclip -selection clipboard'
+    export FORGIT_COPY_CMD="xclip -selection clipboard"
+    export FORGIT_CHECKOUT_BRANCH_BRANCH_GIT_OPTS="--sort=-committerdate"
+    export FORGIT_FZF_DEFAULT_OPTS="
+        --exact
+        --border
+        --cycle
+        --reverse
+        --height '80%'
+    "
     export FORGIT_STASH_FZF_OPTS='
-    --bind="del:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
-    --bind="insert:reload(git stash pop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
+        --bind="del:reload(git stash drop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
+        --bind="enter:reload(git stash pop $(cut -d: -f1 <<<{}) 1>/dev/null && git stash list)"
     '
 # <<< Git initialize <<<
 
 # >>> FZF initialize >>>
 # !! Contents within this block are managed by 'FZF init' !!
     [ -f $HOME/.fzf.zsh ] && source $HOME/.fzf.zsh
-    export FZF_DEFAULT_OPTS="--extended --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9 --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9 --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6 --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4"
+    export FZF_DEFAULT_OPTS="
+        --extended
+        --color=fg:#f8f8f2,bg:#282a36,hl:#bd93f9
+        --color=fg+:#f8f8f2,bg+:#44475a,hl+:#bd93f9
+        --color=info:#ffb86c,prompt:#50fa7b,pointer:#ff79c6
+        --color=marker:#ff79c6,spinner:#ffb86c,header:#6272a4
+    "
     export FZF_DEFAULT_COMMAND="fd --type file --follow --hidden --exclude .git --color=always"
     export FZF_CTRL_T_OPTS="--ansi"
     export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -160,6 +174,8 @@ unset __conda_setup
 # <<< conda initialize <<<
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+eval "$(direnv hook zsh)"
 
 # Fig post block. Keep at the bottom of this file.
 [[ -f "$HOME/.fig/shell/zshrc.post.zsh" ]] && builtin source "$HOME/.fig/shell/zshrc.post.zsh"
